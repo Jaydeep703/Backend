@@ -1,14 +1,21 @@
 const express = require("express");
 require("dotenv").config();
+const post = require("pg")
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const customersRouter = require('./router/router');
+
+
 
 
 const app = express();
 const Port = process.env.PORT || 3002;
+app.use(bodyParser.json());
+app.use(cors());
 
-app.get('/',(req,res)=>{
-    res.send('welcome');
-})
+app.use('/api', customersRouter);
+
 
 app.listen(Port, ()=>{
-    console.log(`Server Started At ${Port}`)
+    console.log(`Server started on port ${Port}`)
 })
